@@ -1,5 +1,6 @@
 package udemy.course.course.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +25,7 @@ public class User implements Serializable {
     private String phone;
     private String password;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "client")
     private List<Order> orderList = new ArrayList<>();
 
