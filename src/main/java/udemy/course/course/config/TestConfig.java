@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import udemy.course.course.entities.Category;
 import udemy.course.course.entities.Order;
 import udemy.course.course.entities.User;
 import udemy.course.course.enums.OrderStatus;
+import udemy.course.course.repositories.CategoryRepository;
 import udemy.course.course.repositories.OrderRepository;
 import udemy.course.course.repositories.UserRepository;
 
@@ -23,8 +25,15 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @Override
     public void run(String... args) throws Exception {
+
+        Category cat1 = new Category(null, "book");
+        Category cat2 = new Category(null, "computer");
+        Category cat3 = new Category(null, "television");
 
         User user1 = new User(null, "Joao Pedro", "joao@pedro", "5546650", "123");
         User user2 = new User(null, "Carlos", "carlos@pedro", "5465", "123");
@@ -34,6 +43,7 @@ public class TestConfig implements CommandLineRunner {
         Order order3 = new Order(null, Instant.parse("2021-12-01T14:30:00Z"), OrderStatus.WAITING_PAYDMENT , user1);
 
 
+        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
         userRepository.saveAll(Arrays.asList(user1, user2));
         orderRepository.saveAll(Arrays.asList(order1, order2, order3));
     }
