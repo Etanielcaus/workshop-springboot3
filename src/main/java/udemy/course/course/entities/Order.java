@@ -3,6 +3,7 @@ package udemy.course.course.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import udemy.course.course.enums.OrderStatus;
 
 
 import java.time.Instant;
@@ -23,12 +24,18 @@ public class Order {
     @JoinColumn(name = "client_id")
     private User client;
 
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
+
     public Order() {
     }
 
-    public Order(Long id, Instant moment, User client) {
+
+
+    public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
         this.id = id;
         this.moment = moment;
+        this.orderStatus = orderStatus;
         this.client = client;
     }
 
@@ -44,4 +51,14 @@ public class Order {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
+//    public OrderStatus getOrderStatus() {
+//        return OrderStatus.valueOf(orderStatus);
+//    }
+
+//    public void setOrderStatus(OrderStatus orderStatus) {
+//        if (orderStatus != null){
+//            this.orderStatus = orderStatus.getCode();
+//        }
+//    }
 }
