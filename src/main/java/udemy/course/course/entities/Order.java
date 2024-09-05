@@ -7,7 +7,9 @@ import udemy.course.course.enums.OrderStatus;
 
 
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -27,6 +29,9 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItem> orderSet = new HashSet<>();
+
     public Order() {
     }
 
@@ -37,6 +42,10 @@ public class Order {
         this.moment = moment;
         this.orderStatus = orderStatus;
         this.client = client;
+    }
+
+    public Set<OrderItem> setOrder(){
+        return orderSet;
     }
 
     @Override

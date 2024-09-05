@@ -1,5 +1,6 @@
 package udemy.course.course.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -12,11 +13,10 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tb_order_item")
-@NoArgsConstructor
 public class OrderItem {
 
     @EmbeddedId
-    private OrderItemPk id;
+    private OrderItemPk id = new OrderItemPk();
 
     @Getter
     @Setter
@@ -26,7 +26,9 @@ public class OrderItem {
     @Setter
     private Double price;
 
+    public OrderItem(){
 
+    }
 
     public OrderItem(Order order, Product product, Integer quantity, Double price) {
         id.setOrder(order);
@@ -35,6 +37,7 @@ public class OrderItem {
         this.price = price;
     }
 
+    @JsonIgnore
     public Order getOrder(){
         return id.getOrder();
     }
